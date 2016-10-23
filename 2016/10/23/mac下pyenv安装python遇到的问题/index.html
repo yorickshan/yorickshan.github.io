@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>DevOps | agdragon&#39;s journal</title>
+  <title>mac下pyenv安装python遇到的问题 | agdragon&#39;s journal</title>
   <meta name="author" content="agdragon">
   
   <meta name="description" content="记录|分享">
@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="DevOps"/>
+  <meta property="og:title" content="mac下pyenv安装python遇到的问题"/>
   <meta property="og:site_name" content="agdragon&#39;s journal"/>
 
   
@@ -103,15 +103,93 @@
 			<!-- index -->
 		   
 
-			  		<h2>DevOps</h2>
+			  		<h2>mac下pyenv安装python遇到的问题</h2>
 					
 					<div>
-						<span class="post-time">2016-10-14 21:46:12</span>
+						<span class="post-time">2016-10-23 11:02:04</span>
 					</div>
 					
 
 					<div class="article-content">
-						<p>Jenkins、Git、Puppet、Chef</p>
+						<p>pyenv，是用来管理电脑不同版本的python的一个管理工具，切换不同版本不会影响到系统自带的python</p>
+<p>pyenv，是一个开源软件，具体可以猛戳这里：<a href="https://github.com/yyuu/pyenv" target="_blank" rel="external">https://github.com/yyuu/pyenv</a></p>
+<p>当执行：</p>
+<pre><code>$ pyenv install 3.4.2
+</code></pre><p>pyenv安装信息如下</p>
+<pre><code>Downloading Python-3.4.2.tgz...
+-&gt; https://yyuu.github.io/pythons/44a3c1ef1c7ca3e4fd25242af80ed72da941203cb4ed1a8c1b724d9078965dd8
+error: failed to download Python-3.4.2.tgz
+-&gt; https://www.python.org/ftp/python/3.4.2/Python-3.4.2.tgz
+Installing Python-3.4.2...
+ERROR: The Python ssl extension was not compiled. Missing the OpenSSL lib?
+
+Please consult to the Wiki page to fix the problem.
+https://github.com/yyuu/pyenv/wiki/Common-build-problems
+
+BUILD FAILED (OS X 10.9.5 using python-build 20150124)
+
+Inspect or clean up the working tree at /var/folders/zf/1b6kcyd53hg0crv65j108_7m0000gn/T/python-build.20150127145029.76064
+Results logged to /var/folders/zf/1b6kcyd53hg0crv65j108_7m0000gn/T/python-build.20150127145029.76064.log
+
+Last 10 log lines:
+(cd /Users/karonchen/.pyenv/versions/3.4.2/share/man/man1; ln -s python3.4.1 python3.1)
+if test &quot;xupgrade&quot; != &quot;xno&quot;  ; then \
+        case upgrade in \
+            upgrade) ensurepip=&quot;--upgrade&quot; ;; \
+            install|*) ensurepip=&quot;&quot; ;; \
+        esac; \
+         ./python.exe -E -m ensurepip \
+            $ensurepip --root=/ ; \
+    fi
+Ignoring ensurepip failure: pip 1.5.6 requires SSL/TLS
+</code></pre><p>原因：</p>
+<blockquote>
+<p>ERROR: The Python ssl extension was not compiled. Missing the OpenSSL lib?</p>
+</blockquote>
+<p>所以，执行下面的代码可以解决这个问题：</p>
+<pre><code>CFLAGS=&quot;-I$(brew --prefix openssl)/include&quot; \
+LDFLAGS=&quot;-L$(brew --prefix openssl)/lib&quot; \
+pyenv install 3.4.2
+</code></pre><p>详情可以看着里：<a href="https://github.com/yyuu/pyenv/issues/22" target="_blank" rel="external">https://github.com/yyuu/pyenv/issues/22</a></p>
+<p>pyenv安装反馈如下：</p>
+<pre><code>Downloading Python-3.4.2.tgz...
+-&gt; https://yyuu.github.io/pythons/44a3c1ef1c7ca3e4fd25242af80ed72da941203cb4ed1a8c1b724d9078965dd8
+Installing Python-3.4.2...
+
+BUILD FAILED (OS X 10.9.5 using python-build 20150124)
+
+Inspect or clean up the working tree at /var/folders/zf/1b6kcyd53hg0crv65j108_7m0000gn/T/python-build.20150127150918.87726
+Results logged to /var/folders/zf/1b6kcyd53hg0crv65j108_7m0000gn/T/python-build.20150127150918.87726.log
+
+Last 10 log lines:
+  File &quot;/private/var/folders/zf/1b6kcyd53hg0crv65j108_7m0000gn/T/python-build.20150127150918.87726/Python-3.4.2/Lib/ensurepip/__main__.py&quot;, line 4, in &lt;module&gt;
+    ensurepip._main()
+  File &quot;/private/var/folders/zf/1b6kcyd53hg0crv65j108_7m0000gn/T/python-build.20150127150918.87726/Python-3.4.2/Lib/ensurepip/__init__.py&quot;, line 209, in _main
+    default_pip=args.default_pip,
+  File &quot;/private/var/folders/zf/1b6kcyd53hg0crv65j108_7m0000gn/T/python-build.20150127150918.87726/Python-3.4.2/Lib/ensurepip/__init__.py&quot;, line 116, in bootstrap
+    _run_pip(args + [p[0] for p in _PROJECTS], additional_paths)
+  File &quot;/private/var/folders/zf/1b6kcyd53hg0crv65j108_7m0000gn/T/python-build.20150127150918.87726/Python-3.4.2/Lib/ensurepip/__init__.py&quot;, line 40, in _run_pip
+    import pip
+zipimport.ZipImportError: can&apos;t decompress data; zlib not available
+make: *** [install] Error 1
+</code></pre><p>原因：</p>
+<blockquote>
+<p>zipimport.ZipImportError: can’t decompress data; zlib not available</p>
+</blockquote>
+<p>执行下面的代码即可解决这个问题：</p>
+<pre><code>CFLAGS=&quot;-I$(xcrun --show-sdk-path)/usr/include&quot; pyenv install -v 3.4.2
+</code></pre><p>详情可以看着里：<a href="https://github.com/yyuu/pyenv/issues/25" target="_blank" rel="external">https://github.com/yyuu/pyenv/issues/25</a></p>
+<p>可是当我在shell中输入</p>
+<pre><code>$ pyenv local 3.4.2 #设置机子使用的python为3.4.2版本
+$ python --version
+$ 2.7.8
+</code></pre><p>发现python还是之前的版本</p>
+<p>查了半天，发现是shell configuration没配置。</p>
+<p>具体可以参考这里：<a href="https://github.com/yyuu/pyenv/issues/228" target="_blank" rel="external">https://github.com/yyuu/pyenv/issues/228</a></p>
+<p>需要在.bash_profile的最下面加入：</p>
+<blockquote>
+<p>if which pyenv &gt; /dev/null; then eval “$(pyenv init -)”; fi</p>
+</blockquote>
 
 					</div>
 
@@ -131,7 +209,7 @@
 
 <section id="comment">
  <!-- 多说评论框 start -->
-<div class="ds-thread" data-thread-key="2016/10/14/DevOps/" data-title="DevOps" data-url="http://agdragon.github.io/http://yoursite.com/2016/10/14/DevOps/"></div>
+<div class="ds-thread" data-thread-key="2016/10/23/mac下pyenv安装python遇到的问题/" data-title="mac下pyenv安装python遇到的问题" data-url="http://agdragon.github.io/http://yoursite.com/2016/10/23/mac下pyenv安装python遇到的问题/"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
