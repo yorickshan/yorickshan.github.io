@@ -177,8 +177,11 @@ $ $SHELL -l 或 $ exec $SHELL
 <p>See `pyenv help <command>‘ for information on a specific command.<br>For full documentation, see: <a href="https://github.com/yyuu/pyenv#readme" target="_blank" rel="external">https://github.com/yyuu/pyenv#readme</a></p>
 <p>看到以上所示内容时即表示pyenv安装成功了</p>
 <h3 id="pyenv常用命令"><a href="#pyenv常用命令" class="headerlink" title="pyenv常用命令"></a>pyenv常用命令</h3><h5 id="查看pyenv版本"><a href="#查看pyenv版本" class="headerlink" title="查看pyenv版本"></a>查看pyenv版本</h5><p>$ pyenv -v</p>
-<h5 id="python配置"><a href="#python配置" class="headerlink" title="python配置"></a>python配置</h5><p>$ pyenv versions – 查看系统当前安装的python列表</p>
+<h5 id="python配置"><a href="#python配置" class="headerlink" title="python配置"></a>python配置</h5><p>$ pyenv versions – 查看pyenv当前安装的python列表，处于激活状态的版本前以 * 标示</p>
+<p>$ pyenv version – 查看pyenv当前的python版本</p>
+<p>$ pyenv install –list 查看pyenv可以安装的python版本清单</p>
 <p>$ pyenv install -v 3.5.1 – 安装python</p>
+<p>参考：<a href="https://agdragon.github.io/2016/10/23/mac%E4%B8%8Bpyenv%E5%AE%89%E8%A3%85python%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/" target="_blank" rel="external">mac下pyenv安装python遇到的问题</a></p>
 <p>$ pyenv uninstall 2.7.3 – 卸载python</p>
 <p>$ pyenv rehash – 创建垫片路径（为所有已安装的可执行文件 （如：~/.pyenv/versions//bin/） 创建 shims，因此，每当你增删了 Python 版本或带有可执行文件的包（如 pip）以后，都应该执行一次本命令）</p>
 <h5 id="python切换"><a href="#python切换" class="headerlink" title="python切换"></a>python切换</h5><p>$ pyenv global 3.4.0 – 设置全局的 Python 版本，通过将版本号写入 ~/.pyenv/version 文件的方式。</p>
@@ -209,37 +212,48 @@ Zsh note: Modify your ~/.zshenv file instead of ~/.bash_profile. Pyenv note: You
 3. Restart your shell to enable pyenv-virtualenv
 $ $SHELL -l 或 $ exec $SHELL
 </code></pre><p>通过pyenv-virtualenv插件可以很好的和 virtualenv结合</p>
-<h5 id="查看pyenv的插件"><a href="#查看pyenv的插件" class="headerlink" title="查看pyenv的插件"></a>查看pyenv的插件</h5><p>[root@linux3311 ~]# cd .pyenv/plugins/</p>
-<p>[root@linux3311 plugins]# ll</p>
-<p>insgesamt 24</p>
-<p>drwxr-xr-x. 4 root root 4096 19. Jun 05:17 pyenv-doctor</p>
-<p>drwxr-xr-x. 5 root root 4096 19. Jun 05:18 pyenv-installer</p>
-<p>drwxr-xr-x. 4 root root 4096 19. Jun 05:18 pyenv-update</p>
-<p>drwxr-xr-x. 7 root root 4096 19. Jun 05:18 pyenv-virtualenv</p>
-<p>drwxr-xr-x. 4 root root 4096 19. Jun 05:18 pyenv-which-ext</p>
-<p>drwxr-xr-x. 5 root root 4096 19. Jun 05:17 python-build</p>
-<h5 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h5><pre><code>创建虚拟环境
-</code></pre><p>$ pyenv virtualenv 2.7.10（python版本） my-virtual-env（虚拟环境名）</p>
-<p>若不指定python版本，会默认使用当前环境python版本。</p>
-<pre><code>列出当前虚拟环境
-</code></pre><p>pyenv virtualenvs</p>
-<pre><code>激活虚拟环境
-</code></pre><p>pyenv activate my-env</p>
-<p>pyenv-virtualenv: prompt changing will be removed from future release. configure ‘export PYENV_VIRTUALENV_DISABLE_PROMPT=1’ to simulate the behavior.</p>
-<p>在~/.pyenv/versions目录下可以看到两个文件夹:2.7.10和my-virtual-env, 进入my-virtual-env里面有个bin目录,执行</p>
+<h5 id="查看pyenv的插件"><a href="#查看pyenv的插件" class="headerlink" title="查看pyenv的插件"></a>查看pyenv的插件</h5><pre><code>[root@linux3311 ~]# cd .pyenv/plugins/
+
+[root@linux3311 plugins]# ll
+
+insgesamt 24
+
+drwxr-xr-x. 4 root root 4096 19. Jun 05:17 pyenv-doctor
+
+drwxr-xr-x. 5 root root 4096 19. Jun 05:18 pyenv-installer
+
+drwxr-xr-x. 4 root root 4096 19. Jun 05:18 pyenv-update
+
+drwxr-xr-x. 7 root root 4096 19. Jun 05:18 pyenv-virtualenv
+
+drwxr-xr-x. 4 root root 4096 19. Jun 05:18 pyenv-which-ext
+
+drwxr-xr-x. 5 root root 4096 19. Jun 05:17 python-build
+</code></pre><h5 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h5><p>创建虚拟环境</p>
+<pre><code>$ pyenv virtualenv 2.7.10（python版本） my-virtual-env（虚拟环境名）
+</code></pre><p>若不指定python版本，会默认使用当前环境python版本。</p>
+<p>列出当前虚拟环境</p>
+<pre><code>pyenv virtualenvs
+</code></pre><p>激活虚拟环境</p>
+<pre><code>pyenv activate my-env
+
+pyenv-virtualenv: prompt changing will be removed from future release. configure &apos;export PYENV_VIRTUALENV_DISABLE_PROMPT=1&apos; to simulate the behavior.
+</code></pre><p>在~/.pyenv/versions目录下可以看到两个文件夹:2.7.10和my-virtual-env, 进入my-virtual-env里面有个bin目录,执行</p>
 <blockquote>
 <p>. ~/.pyenv/versions/my-virtual-env/bin/activate （注意最前面的点）</p>
 </blockquote>
 <p>会发现命令行左边多了一个(my-virtual-env)，说明这个沙盒环境已经被启用了</p>
 <p>可以通过alias配置到.bash_profile里</p>
-<pre><code>退出虚拟环境
-</code></pre><p>pyenv deactivate</p>
-<pre><code>删除虚拟环境
-</code></pre><p>方式二，温柔卸载：pyenv uninstall my-virtual-env</p>
-<p>出现提示：pyenv: remove /Users/agdragon/.pyenv/versions/my-virtual-env? y</p>
+<p>退出虚拟环境</p>
+<pre><code>pyenv deactivate
+</code></pre><p>删除虚拟环境</p>
+<p>温柔卸载：</p>
+<pre><code>pyenv uninstall my-virtual-env
+</code></pre><p>出现提示：pyenv: remove /Users/agdragon/.pyenv/versions/my-virtual-env? y</p>
 <p>或</p>
-<p>方式一，暴力删除：$ rm -rf ~/.pyenv/versions/my-vitual-env/</p>
-<p>每次安装完新版本python，或新的虚拟环境，或新的包，可能需要执行命令 pyenv rehash 才能生效</p>
+<p>暴力删除：</p>
+<pre><code>$ rm -rf ~/.pyenv/versions/my-vitual-env/
+</code></pre><p>每次安装完新版本python，或新的虚拟环境，或新的包，可能需要执行命令 pyenv rehash 才能生效</p>
 <p>使用pyenv 来管理python，使用 pyenv-virtualenv 插件来管理多版本 python包。</p>
 <p>此时，还需注意，当我们将项目运行的 env 环境部署到生产环境时，由于我们的python 包是依赖python 的，需要注意生产环境的python版本问题：</p>
 <pre><code>使用virtualenv来部署django应用，大大缩减了我们搭建环境的时间。初次使用，以为创建好的env可以直接复制使用。实际使用时，确遇到了各种问题。
