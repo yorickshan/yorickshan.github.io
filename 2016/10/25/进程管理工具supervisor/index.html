@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>用requirements.txt安装类库 | agdragon&#39;s journal</title>
+  <title>进程管理工具supervisor | agdragon&#39;s journal</title>
   <meta name="author" content="agdragon">
   
   <meta name="description" content="记录|分享">
@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="用requirements.txt安装类库"/>
+  <meta property="og:title" content="进程管理工具supervisor"/>
   <meta property="og:site_name" content="agdragon&#39;s journal"/>
 
   
@@ -103,34 +103,15 @@
 			<!-- index -->
 		   
 
-			  		<h2>用requirements.txt安装类库</h2>
+			  		<h2>进程管理工具supervisor</h2>
 					
 					<div>
-						<span class="post-time">2016-10-14 22:26:08</span>
+						<span class="post-time">2016-10-25 10:18:15</span>
 					</div>
 					
 
 					<div class="article-content">
-						<p>为什么要使用requirements.txt？</p>
-<pre><code>任何应用程序通常需要设置安装所需并依赖一组类库来满足工作要求。要求文件是指定和一次性安装包的依赖项具体一整套方法。
-</code></pre><p>requirements.txt文件格式：</p>
-<pre><code>requests==1.2.0 Flask==0.10.1
-</code></pre><p>方法一：</p>
-<pre><code>$ pip freeze &gt; requirements.txt
-</code></pre><p>pip的freeze命令用于生成将当前项目的pip类库列表生成 requirements.txt 文件：</p>
-<p>如果要安装requirements.txt中的类库内容，那么你可以执行</p>
-<pre><code>pip install -r requirements.txt.
-</code></pre><p>方法二：</p>
-<p>使用pipreqs生成requirements.txt文件，可以根据需要导入的任何项目</p>
-<p>为什么不使用pip的Freeze命令呢？</p>
-<p>pip的freeze命令保存了保存当前Python环境下所有类库包，其它包括那些你没有在当前项目中使用的类库。 （如果你没有的virtualenv）。</p>
-<p>pip的freeze命令只保存与安装在您的环境python所有软件包。</p>
-<p>但有时你只想将当前项目使用的类库导出生成为 requirements.txt；</p>
-<p>使用方法：</p>
-<pre><code>$ pipreqs /home/project/location
-</code></pre><p>Successfully saved requirements file in /home/project/location/requirements.txt</p>
-<p>其他选项详见<a href="https://github.com/bndr/pipreqs" target="_blank" rel="external">https://github.com/bndr/pipreqs</a></p>
-
+						
 					</div>
 
 			  <!-- about -->
@@ -149,7 +130,7 @@
 
 <section id="comment">
  <!-- 多说评论框 start -->
-<div class="ds-thread" data-thread-key="2016/10/14/用requirements-txt安装类库/" data-title="用requirements.txt安装类库" data-url="http://agdragon.github.io/http://yoursite.com/2016/10/14/用requirements-txt安装类库/"></div>
+<div class="ds-thread" data-thread-key="2016/10/25/进程管理工具supervisor/" data-title="进程管理工具supervisor" data-url="http://agdragon.github.io/http://yoursite.com/2016/10/25/进程管理工具supervisor/"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

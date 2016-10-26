@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>gunicorn | agdragon&#39;s journal</title>
+  <title>pip | agdragon&#39;s journal</title>
   <meta name="author" content="agdragon">
   
   <meta name="description" content="记录|分享">
@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="gunicorn"/>
+  <meta property="og:title" content="pip"/>
   <meta property="og:site_name" content="agdragon&#39;s journal"/>
 
   
@@ -103,32 +103,106 @@
 			<!-- index -->
 		   
 
-			  		<h2>gunicorn</h2>
+			  		<h2>pip</h2>
 					
 					<div>
-						<span class="post-time">2016-10-14 10:57:38</span>
+						<span class="post-time">2016-10-14 19:55:50</span>
 					</div>
 					
 
 					<div class="article-content">
-						<p>Gunicorn 绿色独角兽’是一个Python WSGI UNIX的HTTP服务器。这是一个预先叉工人模式，从Ruby的独角兽（Unicorn ）项目移植。该Gunicorn服务器大致与各种Web框架兼容，只需非常简单的执行，轻量级的资源消耗，以及相当迅速。</p>
-<p>特点：</p>
-<p>本身支持WSGI、Django、Paster</p>
-<p>自动辅助进程管理</p>
-<p>简单的 Python配置</p>
-<p>允许配置多个工作环境</p>
-<p>各种服务器的可扩展钩子</p>
-<p>与Python 2.x &gt; = 2.5 兼容</p>
-<p>Gunicorn运行Python的网站真是非常简单了，这里介绍下django如何使用，和apache复杂配置相比，这个配置少得真不是一个数量级。</p>
-<p>首先在unix下通过easy_install 安装Gunicorn:</p>
-<p>$ easy_install gunicorn</p>
-<p>然后在你的django工程下面运行：</p>
-<p>$ gunicorn_django [OPTIONS] [SETTINGS_PATH]如：</p>
-<p>$ cd path/to/yourdjangoproject<br>$ gunicorn_django –workers=2</p>
-<p>或者修改setting.py文件：</p>
-<p>INSTALLED_APPS = (<br>    …<br>    “gunicorn”,<br>)</p>
-<p>然后运行：</p>
-<p>python manage.py run_gunicorn简单得令人难以置信吧。</p>
+						<p>一般在安装python时会自带pip</p>
+<p>pip下载</p>
+<pre><code>$ wget &quot;https://pypi.python.org/packages/source/p/pip/pip-1.5.4.tar.gz#md5=834b2904f92d46aaa333267fb1c922bb&quot; --no-check-certificate
+</code></pre><p>pip安装</p>
+<pre><code>$ tar -xzvf pip-1.5.4.tar.gz
+$ cd pip-1.5.4
+$ python setup.py install
+</code></pre><h1 id="tar-xzvf-pip-1-5-4-tar-gz"><a href="#tar-xzvf-pip-1-5-4-tar-gz" class="headerlink" title="tar -xzvf pip-1.5.4.tar.gz"></a>tar -xzvf pip-1.5.4.tar.gz</h1><h1 id="cd-pip-1-5-4"><a href="#cd-pip-1-5-4" class="headerlink" title="cd pip-1.5.4"></a>cd pip-1.5.4</h1><h1 id="python-setup-py-install"><a href="#python-setup-py-install" class="headerlink" title="python setup.py install"></a>python setup.py install</h1><ol>
+<li>pip使用详解</li>
+</ol>
+<p>安装指定版本的Python包（通过 == 操作符指定）</p>
+<pre><code>pip install robotframework==2.8.7
+</code></pre><p>将安装robotframework 2.8.7 版本</p>
+<p>导出requirements.txt</p>
+<pre><code>pip freeze &gt; &lt;目录&gt;/requirements.txt
+</code></pre><p>导入requirements.txt</p>
+<pre><code>pip install -r requirements.txt
+</code></pre><p>安装本地安装包</p>
+<pre><code>pip install &lt;目录&gt;/&lt;文件名&gt; 或 pip install --use-wheel --no-index --find-links=wheelhouse/ &lt;包名&gt;
+</code></pre><p>&lt;包名&gt;前有空格</p>
+<p>可简写为</p>
+<pre><code>pip install --no-index -f=&lt;目录&gt;/ &lt;包名&gt;
+</code></pre><p>卸载包</p>
+<pre><code>pip uninstall &lt;包名&gt; 或 pip uninstall -r requirements.txt
+</code></pre><p>列出已安装的包</p>
+<pre><code>pip freeze
+
+or
+
+pip list
+</code></pre><p>查询可升级的包</p>
+<pre><code>pip list -o
+</code></pre><p>升级包</p>
+<pre><code>pip install -U &lt;包名&gt;
+升级pip
+
+pip install -U pip
+</code></pre><p>显示包所在的目录</p>
+<pre><code>pip show -f &lt;包名&gt;
+</code></pre><p>搜索包</p>
+<pre><code>pip search &lt;搜索关键字&gt;
+</code></pre><p>下载包而不安装</p>
+<pre><code>pip install &lt;包名&gt; -d &lt;目录&gt; 或 pip install -d &lt;目录&gt; -r requirements.txt
+</code></pre><p>打包</p>
+<pre><code>pip wheel &lt;包名&gt;
+</code></pre><p>更换国内pypi镜像</p>
+<p>国内pypi镜像</p>
+<pre><code>V2EX：pypi.v2ex.com/simple
+豆瓣：http://pypi.douban.com/simple
+中国科学技术大学：http://pypi.mirrors.ustc.edu.cn/simple/
+</code></pre><p>指定单次安装源</p>
+<pre><code>pip install &lt;包名&gt; -i http://pypi.v2ex.com/simple
+</code></pre><p>指定全局安装源</p>
+<pre><code>在unix和macos，配置文件为：$HOME/.pip/pip.conf
+在windows上，配置文件为：%HOME%\pip\pip.ini
+
+[global]
+timeout = 6000
+  index-url = http://pypi.douban.com/simple
+</code></pre><p>pip参数解释</p>
+<pre><code># pip --help
+
+Usage:   
+  pip &lt;command&gt; [options]
+
+Commands:
+  install                     安装包.
+  uninstall                   卸载包.
+  freeze                      按着一定格式输出已安装包列表
+  list                        列出已安装包.
+  show                        显示包详细信息.
+  search                      搜索包，类似yum里的search.
+  wheel                       Build wheels from your requirements.
+  zip                         不推荐. Zip individual packages.
+  unzip                       不推荐. Unzip individual packages.
+  bundle                      不推荐. Create pybundles.
+  help                        当前帮助.
+
+General Options:
+  -h, --help                  显示帮助.
+  -v, --verbose               更多的输出，最多可以使用3次
+  -V, --version               现实版本信息然后退出.
+  -q, --quiet                 最少的输出.
+  --log-file &lt;path&gt;           覆盖的方式记录verbose错误日志，默认文件：/root/.pip/pip.log
+  --log &lt;path&gt;                不覆盖记录verbose输出的日志.
+  --proxy &lt;proxy&gt;             Specify a proxy in the form [user:passwd@]proxy.server:port.
+  --timeout &lt;sec&gt;             连接超时时间 (默认15秒).
+  --exists-action &lt;action&gt;    Default action when a path already exists: (s)witch, (i)gnore, (w)ipe, (b)ackup.
+  --cert &lt;path&gt;               证书.
+</code></pre><p>常见错误</p>
+<pre><code>ImportError No module named setuptools
+</code></pre><p>参考<a href="http://www.ttlsa.com/python/importerror-no-module-named-setuptools-res/?preview=true" target="_blank" rel="external">《ImportError No module named setuptools解决》</a></p>
 
 					</div>
 
@@ -148,7 +222,7 @@
 
 <section id="comment">
  <!-- 多说评论框 start -->
-<div class="ds-thread" data-thread-key="2016/10/14/gunicorn/" data-title="gunicorn" data-url="http://agdragon.github.io/http://yoursite.com/2016/10/14/gunicorn/"></div>
+<div class="ds-thread" data-thread-key="2016/10/14/pip/" data-title="pip" data-url="http://agdragon.github.io/http://yoursite.com/2016/10/14/pip/"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

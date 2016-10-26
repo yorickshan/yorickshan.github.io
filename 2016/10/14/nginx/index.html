@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>nginx | agdragon&#39;s journal</title>
+  <title>mac下nginx的安装与使用 | agdragon&#39;s journal</title>
   <meta name="author" content="agdragon">
   
   <meta name="description" content="记录|分享">
@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="nginx"/>
+  <meta property="og:title" content="mac下nginx的安装与使用"/>
   <meta property="og:site_name" content="agdragon&#39;s journal"/>
 
   
@@ -103,7 +103,7 @@
 			<!-- index -->
 		   
 
-			  		<h2>nginx</h2>
+			  		<h2>mac下nginx的安装与使用</h2>
 					
 					<div>
 						<span class="post-time">2016-10-14 10:57:14</span>
@@ -111,7 +111,81 @@
 					
 
 					<div class="article-content">
-						
+						<h2 id="Nginx安装"><a href="#Nginx安装" class="headerlink" title="Nginx安装"></a>Nginx安装</h2><p>先安装PCRE库(注：nginx rewrite依赖该库)</p>
+<p>可以在这里<a href="http://www.pcre.org/" target="_blank" rel="external">下载</a>最新版（这里使用的是8.33的版本），然后在终端执行下面的命令。</p>
+<pre><code>cd ~/Download
+tar xvzf pcre-8.33.tar.gz
+cd pcre-8.33
+sudo ./configure --prefix=/usr/local
+sudo make
+sudo make install
+</code></pre><p>终端执行：</p>
+<pre><code>brew search nginx
+brew install nginx
+</code></pre><p>安装完以后，可以在终端输出的信息里看到一些配置路径：</p>
+<pre><code>/usr/local/etc/nginx/nginx.conf （配置文件路径）
+
+/usr/local/var/www （服务器默认路径）
+
+/usr/local/Cellar/nginx/1.6.2  （貌似是安装路径）
+</code></pre><h2 id="Nginx常用命令"><a href="#Nginx常用命令" class="headerlink" title="Nginx常用命令"></a>Nginx常用命令</h2><pre><code>nginx -V 查看版本，以及配置文件地址
+nginx -v 查看版本
+nginx -c filename 指定配置文件
+nginx -h 帮助
+</code></pre><p>启动 Nginx                 </p>
+<pre><code>sudo nginx
+</code></pre><p>Nginx 默认8080端口，这时已经可以在浏览器访问了：</p>
+<pre><code>localhost:8080
+</code></pre><p>会有一个默认欢迎界面。</p>
+<p>重新加载配置|重启|停止|退出 nginx</p>
+<pre><code>nginx -s reload|reopen|stop|quit
+</code></pre><p>Nginx 重载配置</p>
+<pre><code>sudo nginx -s reload
+</code></pre><p>上述是采用向 Nginx 发送信号的方式，或者使用：</p>
+<pre><code>service nginx reload
+</code></pre><p> <strong>备注:</strong> 做个软连接 ln -s  /usr/local/sbin/nginx /usr/bin/nginx</p>
+<p>停止并退出 Nginx</p>
+<pre><code>sudo nginx -s stop
+sudo nginx -s quit
+</code></pre><p>-s都是采用向 Nginx 发送信号的方式。</p>
+<p>测试配置是否有语法错误</p>
+<pre><code>nginx -t
+</code></pre><p>指定配置文件</p>
+<pre><code>sudo nginx -c /usr/local/nginx/conf/nginx.conf
+</code></pre><p>-c表示configuration，指定配置文件。</p>
+<p>查看 Nginx 版本</p>
+<p>有两种可以查看 Nginx 的版本信息的参数。第一种如下：</p>
+<pre><code>nginx -v
+</code></pre><p>另一种显示的是详细的版本信息：</p>
+<pre><code>nginx -V
+</code></pre><p>检查配置文件是否正确</p>
+<pre><code>nginx -t
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">nginx: [alert] could not open error log file: open() &quot;/usr/local/nginx/logs/error.log&quot; failed (13: Permission denied)</div><div class="line">nginx: the configuration file /usr/local/nginx/conf/nginx.conf syntax is ok</div><div class="line">2012/01/09 16:45:09 [emerg] 23898#0: open() &quot;/usr/local/nginx/logs/nginx.pid&quot; failed (13: Permission denied)</div><div class="line">nginx: configuration file /usr/local/nginx/conf/nginx.conf test failed</div></pre></td></tr></table></figure>
+<p>如果出现如上的提示信息，表示没有访问错误日志文件和进程，可以sudo（super user do）一下：</p>
+<pre><code>sudo nginx -t
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">nginx: the configuration file /usr/local/nginx/conf/nginx.conf syntax is ok</div><div class="line">nginx: configuration file /usr/local/nginx/conf/nginx.conf test is successful</div></pre></td></tr></table></figure>
+<p>如果显示如上，则表示配置文件正确。否则，会有相关提示。</p>
+<p>显示帮助信息</p>
+<p>  nginx -h</p>
+<p>或者：</p>
+<p>  nginx -?</p>
+<pre><code>[root@centos-1-22 sbin]# ./nginx -h
+nginx version: nginx/1.0.15
+Usage: nginx [-?hvVtq] [-s signal] [-c filename] [-p prefix] [-g directives]
+
+Options:
+  -?,-h         : this help
+  -v            : show version and exit
+  -V            : show version and configure options then exit
+  -t            : test configuration and exit
+  -q            : suppress non-error messages during configuration testing
+  -s signal     : send signal to a master process: stop, quit, reopen, reload
+  -p prefix     : set prefix path (default: /usr/local/nginx/)
+  -c filename   : set configuration file (default: conf/nginx.conf)
+  -g directives : set global directives out of configuration fil
+</code></pre><p>以上这些涵盖了 Nginx 日常维护的所有基本操作</p>
+<p>另外还有向 master 进程发送信号的相关命令</p>
+
 					</div>
 
 			  <!-- about -->
@@ -130,7 +204,7 @@
 
 <section id="comment">
  <!-- 多说评论框 start -->
-<div class="ds-thread" data-thread-key="2016/10/14/nginx/" data-title="nginx" data-url="http://agdragon.github.io/http://yoursite.com/2016/10/14/nginx/"></div>
+<div class="ds-thread" data-thread-key="2016/10/14/nginx/" data-title="mac下nginx的安装与使用" data-url="http://agdragon.github.io/http://yoursite.com/2016/10/14/nginx/"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
