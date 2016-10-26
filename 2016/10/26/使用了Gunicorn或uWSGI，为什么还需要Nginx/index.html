@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>从“使用了uWSGI，为什么还需要Nginx”这个问题拓展开去 | agdragon&#39;s journal</title>
+  <title>从“有uWSGI，为什么还需要Nginx”这个问题拓展开去 | agdragon&#39;s journal</title>
   <meta name="author" content="agdragon">
   
   <meta name="description" content="记录|分享">
@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="从“使用了uWSGI，为什么还需要Nginx”这个问题拓展开去"/>
+  <meta property="og:title" content="从“有uWSGI，为什么还需要Nginx”这个问题拓展开去"/>
   <meta property="og:site_name" content="agdragon&#39;s journal"/>
 
   
@@ -103,7 +103,7 @@
 			<!-- index -->
 		   
 
-			  		<h2>从“使用了uWSGI，为什么还需要Nginx”这个问题拓展开去</h2>
+			  		<h2>从“有uWSGI，为什么还需要Nginx”这个问题拓展开去</h2>
 					
 					<div>
 						<span class="post-time">2016-10-26 12:10:15</span>
@@ -112,22 +112,26 @@
 
 					<div class="article-content">
 						<p><img src="http://images2015.cnblogs.com/blog/742678/201601/742678-20160122105049312-1875852332.jpg" alt=""></p>
-<h2 id="先理解几个概念"><a href="#先理解几个概念" class="headerlink" title="先理解几个概念"></a>先理解几个概念</h2><h3 id="web框架"><a href="#web框架" class="headerlink" title="web框架"></a>web框架</h3><p>指Django，Flask，Tornado等一套python代码</p>
+<h2 id="先理解几个概念"><a href="#先理解几个概念" class="headerlink" title="先理解几个概念"></a>先理解几个概念</h2><h3 id="WSGI"><a href="#WSGI" class="headerlink" title="WSGI"></a>WSGI</h3><p><a href="https://agdragon.github.io/2016/10/26/WSGI%E5%88%9D%E6%8E%A2/" target="_blank" rel="external">WSGI初探</a></p>
+<h3 id="web框架"><a href="#web框架" class="headerlink" title="web框架"></a>web框架</h3><p>指Django，Flask，Tornado等一套python代码</p>
 <p><strong>注：</strong> <em>同时tornado也是一个异步的应用服务器</em></p>
 <h3 id="web服务器和应用服务器"><a href="#web服务器和应用服务器" class="headerlink" title="web服务器和应用服务器"></a>web服务器和应用服务器</h3><p>严格意义上，Web服务器只负责处理HTTP协议，用于处理静态页面的内容。而动态内容需要通过WSGI接口交给应用服务器去处理。</p>
 <p>Web服务器包括Nginx，Apache，IIS等。一般被作为转发服务器使用，包括静态资源存储用。</p>
-<p>至于wsgi服务器 如何衔接应用与请求之间的关系 我建议看一下PEP3333<br><a href="https://www.python.org/dev/pe" target="_blank" rel="external">https://www.python.org/dev/pe</a>…<br>仔细了解一下什么是wsgi。</p>
 <p>应用服务器</p>
-<p>包括Gunicorn，uWSGI等WSGI容器。在python中其实最终在为应用服务的最后是wsgi服务器。所以一般python里面被叫做应用服务器的是wsgi服务器。</p>
+<p>包括Gunicorn，uWSGI等WSGI容器。在python中其实最终在为应用服务的最后是wsgi服务器。所以一般python里面被叫做应用服务器的是wsgi服务器。（至于wsgi服务器 如何衔接应用与请求之间的关系 我建议看一下PEP3333，仔细了解一下什么是wsgi）</p>
 <p><strong>注：</strong> <em>一般应用服务器都集成了web服务器，主要是为了调试方便，出于性能和稳定性考虑，并不能在生产环境中使用。</em></p>
 <p><strong>web服务器又被称作http服务器</strong></p>
 <p>Web服务器是指驻留于因特网上某种类型计算机的程序。当Web浏览器（客户端）连到服务器上并请求文件时，服务器将处理该请求并将文件发送到该浏览器上，附带的信息会告诉浏览器如何查看该文件（即文件类型）。<strong>服务器使用HTTP（超文本传输协议）进行信息交流，这就是人们常把它们称为HTTP服务器的原因。</strong></p>
 <h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p><strong>情形一：</strong> 如果本地有多个web服务，有 Python、php、java 编写的，都想监听 80 端口，这个时候就必须有一个负责转发的服务了。</p>
+<p>当我的网站是一个中大型网站的时候，对我们服务的访问将是成千上万的。那么这里面包含着各种各样的服务请求。 nginx作为web服务器将这些请求都收集起来然后主要做一个向背后的真正处理这些请求的应用服务器做转发。 比如nginx收到了1w个请求，其中有3k个请求要求请求flask框架上的某个接口，那么nginx服务器直接将这个请求转发给uwsgi应用服务器。应用服务器监听的端口收到这个请求之后，便开始与框架所在的应用层通信，将该请求按照wsgi的标准交给我们的应用层框架，然后再由引用层将符合标准的数据取出来做处理，处理完毕之后再返回给应用服务器，应用服务器最终将处理好的信息发给nginx再由nginx回给用户。</p>
+<p>看到这里，其实就可以发现，其实我们常看到的wsgi服务器 根本就不是我们传统意义上理解的nginx和apache这种服务器。而是wsgi_server 应用处理服务器也就是uwsgi gunicorn 和各种框架自带的wsgi开发用的应用处理服务器。理解这点我认为非常重要。 其实抛开nginx不看我们可以把wsgi分成三个部分。 wsgi_server wsgi_middleware and wsgi_application。</p>
+<p>试想一下，我们的应用可能拥有各种各样的服务，可能有些使用php有些使用python，如果我只有某一个wsgi的服务器在进行服务，那么他将监听所有来自80端口和443端口的请求，对于无法兼容她们的应用，就无法处理这些请求了。所以我们需要一个能处理各种各样请求并转发的静态服务器也就是nginx服务器这样的角色来做这件事情，然后将对应的请求发给对应的应用服务器进行处理。从而提高效率，分工明确的处理来自互联网的各种各样的需求，也使得背后的逻辑显得更高效和合理。</p>
 <p><strong>情形二：</strong> 如果本机只跑一个web服务，但是 uwsgi 和 gevent 对于静态资源处理的并不是很好，一是性能问题，二是各种 HTTP 请求缓存头，处理的也没有 Nginx 完善。</p>
 <p><strong>情形三：</strong> 一些安全问题，Nginx 作为专业服务器，暴露在公网相对比较安全（虽然有著名的心血漏洞），uwsgi 和 gevent 的话，漏洞恐怕只比 Nginx 多而不是少。</p>
 <p><strong>情形四：</strong> 支持的协议，uwsgi 和 gunicon 早期是不支持 https 的，只能提供 http 给浏览器访问。虽然现在这两者都支持了，但是以后的 spdy 和http2，恐怕也是 nginx 跟进更快一些。</p>
 <p><strong>情形五：</strong> 运维优势，比如服务器被人 CC，这是一种非常常见的情况，nginx 可以比较方便的把一些 IP 加入黑名单，直接改配置文件就好了。要是 uwsgi 或者 gunicorn，恐怕还要修改自己应用的代码，把 IP 过滤写进去。</p>
 <p><strong>情形六：</strong> 多机情况下用nginx做负载均衡</p>
+<p>参考：<a href="http://www.cnblogs.com/piperck/p/5150115.html" target="_blank" rel="external">关于Nginx+Gunicorn+uwsgi+后端框架到app架构梳理和思考</a></p>
 
 					</div>
 
@@ -147,7 +151,7 @@
 
 <section id="comment">
  <!-- 多说评论框 start -->
-<div class="ds-thread" data-thread-key="2016/10/26/使用了Gunicorn或uWSGI，为什么还需要Nginx/" data-title="从“使用了uWSGI，为什么还需要Nginx”这个问题拓展开去" data-url="http://agdragon.github.io/http://yoursite.com/2016/10/26/使用了Gunicorn或uWSGI，为什么还需要Nginx/"></div>
+<div class="ds-thread" data-thread-key="2016/10/26/使用了Gunicorn或uWSGI，为什么还需要Nginx/" data-title="从“有uWSGI，为什么还需要Nginx”这个问题拓展开去" data-url="http://agdragon.github.io/http://yoursite.com/2016/10/26/使用了Gunicorn或uWSGI，为什么还需要Nginx/"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
