@@ -1,1 +1,318 @@
-function r(a){return a*Math.random()}function s(){return document.createElement("canvas")}function u(){var a,d,e,f;for(p+=.01,d=Math.sin(p),a=0;m>a;a++)f=o[a],e=Math.sin(4*p+a),f[1]+=f[2]/2+(2+e),f[0]+=6*(d+e/2)/(10/f[2]),f[1]>c&&(f[1]=-n,f[0]=r(b)),(f[0]>b||f[0]<-n)&&(f[0]=d>0?-n:b),o[a]=f}function t(){var a,d;for(d=0;m>d;d++)a=.6*m>d?0:.8*m>d?1:.9*m>d?2:.98*m>d?3:4,o[d]=[r(b),r(c),a]}function w(){b=window.innerWidth,c=window.innerHeight,void 0!==j&&(j.width=b,j.height=c,m=b*c/6e3,l=k.createLinearGradient(0,0,0,c),t())}function t(){var a,d;for(d=0;m>d;d++)a=.6*m>d?0:.8*m>d?1:.9*m>d?2:.98*m>d?3:4,o[d]=[r(b),r(c),a]}function v(){var a;for(k.fillStyle=l,k.clearRect(0,0,b,c),k.beginPath(),a=0;m>a;a++)k.drawImage(i[o[a][2]],o[a][0],o[a][1]);k.fill(),u()}function w(){b=window.innerWidth,c=window.innerHeight,void 0!==j&&(j.width=b,j.height=c,m=b*c/6e3,l=k.createLinearGradient(0,0,0,c),t())}function x(){var a=!1;try{document.createElement("canvas").getContext("2d"),a=$.ua.ie?11<=$.ua.ie?!0:!1:!0}catch(b){}return a?(window.addEventListener("resize",w,!1),j=document.createElement("canvas"),j.style.position="fixed",j.style.top="0px",j.style.left="0px",j.style.zIndex=5e3,j.style.pointerEvents="none",j.id="canvas_snow",document.body.appendChild(j),k=j.getContext("2d"),k.strokeStyle="none",d=s(),b=s(),f=s(),g=s(),h=s(),i=[d,b,f,g,h],y({canvas:d,width:.4*n,height:.4*n,color:"#FFF",soft:.05}),y({canvas:b,width:.5*n,height:.5*n,color:"#FFF",soft:.05}),y({canvas:f,width:.6*n,height:.6*n,color:"#FFF",soft:.3}),y({canvas:g,width:.8*n,height:.8*n,color:"#FFF",soft:.2}),y({canvas:h,width:n,height:n,color:"#FFF",soft:.05}),w(null),snowTimer=setInterval(function(){q(v)},50),void 0):!1}function z(a,b){var c,d,e;return a=a.replace(/^s*#|s*$/g,""),3===a.length&&(a=a.replace(/([0-9a-fA-F])/g,"$1$1")),d=parseInt(a.substr(2,2),16),e=parseInt(a.substr(4,2),16),c=parseInt(a.substr(0,2),16),"rgba("+c+", "+d+", "+e+", "+b+")"}function y(a){var b,c,d,e,f,g,h,i,j;d=a.width||30,e=a.height||30,f=d/2,g=e/2,i=a.color||"#FFF",h=a.soft||0,b=a.canvas,b.width=d,b.height=d,c=b.getContext("2d"),c.clearRect(0,0,d,e),j=c.createRadialGradient(f,g,0,f,g,f),j.addColorStop(0,i),j.addColorStop(.1,i),j.addColorStop(.85,z(i,h)),j.addColorStop(1,z(i,0)),c.fillStyle=j,c.fillRect(0,0,d,e)}var b,c,d,e,f,g,h,i=[],j,k,l,m,n=20,o=[],p=0,q=function(){return window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(a){window.setTimeout(a,62.5)}}();x();
+{
+  "Results": {
+    "Status": 0,
+    "Errcode": null,
+    "breakinformation": [
+      {
+        "restpointcd": "491528",
+        "restpointname": "セブンイレブンハイアットリージェンシー東京店",
+        "restpointdiv": "03",
+        "referencelatlon": {
+          "referencelat": "35.68756508",
+          "referencelon": "139.6943154"
+        },
+        "gateway1latlon": null,
+        "gateway2latlon": null,
+        "cartype": "",
+        "memo_public_all": "",
+        "facilitystopflag": 2,
+        "restngflag": 1,
+        "companiesflag": 0,
+        "private_data": null
+      },
+      {
+        "restpointcd": "494763",
+        "restpointname": "ローソン新宿富久町店",
+        "restpointdiv": "03",
+        "referencelatlon": {
+          "referencelat": "35.68794492",
+          "referencelon": "139.7211426"
+        },
+        "gateway1latlon": null,
+        "gateway2latlon": null,
+        "cartype": "",
+        "memo_public_all": "",
+        "facilitystopflag": 2,
+        "restngflag": 1,
+        "companiesflag": 0,
+        "private_data": null
+      },
+      {
+        "restpointcd": "499683",
+        "restpointname": "ローソン新宿靖国通店",
+        "restpointdiv": "03",
+        "referencelatlon": {
+          "referencelat": "35.6898785",
+          "referencelon": "139.7075999"
+        },
+        "gateway1latlon": null,
+        "gateway2latlon": null,
+        "cartype": "",
+        "memo_public_all": "",
+        "facilitystopflag": 2,
+        "restngflag": 1,
+        "companiesflag": 0,
+        "private_data": null
+      },
+      {
+        "restpointcd": "499727",
+        "restpointname": "ローソン千駄ケ谷二丁目店",
+        "restpointdiv": "03",
+        "referencelatlon": {
+          "referencelat": "35.67288517",
+          "referencelon": "139.7156771"
+        },
+        "gateway1latlon": null,
+        "gateway2latlon": null,
+        "cartype": "",
+        "memo_public_all": "",
+        "facilitystopflag": 2,
+        "restngflag": 1,
+        "companiesflag": 0,
+        "private_data": null
+      },
+      {
+        "restpointcd": "504482",
+        "restpointname": "ローソンＬ国立能楽堂前店",
+        "restpointdiv": "03",
+        "referencelatlon": {
+          "referencelat": "35.67777125",
+          "referencelon": "139.7100489"
+        },
+        "gateway1latlon": null,
+        "gateway2latlon": null,
+        "cartype": "",
+        "memo_public_all": "",
+        "facilitystopflag": 2,
+        "restngflag": 1,
+        "companiesflag": 0,
+        "private_data": null
+      },
+      {
+        "restpointcd": "505767",
+        "restpointname": "ファミリーマート新宿靖国通り店",
+        "restpointdiv": "03",
+        "referencelatlon": {
+          "referencelat": "35.68970267",
+          "referencelon": "139.7084223"
+        },
+        "gateway1latlon": null,
+        "gateway2latlon": null,
+        "cartype": "",
+        "memo_public_all": "",
+        "facilitystopflag": 2,
+        "restngflag": 1,
+        "companiesflag": 0,
+        "private_data": null
+      },
+      {
+        "restpointcd": "505768",
+        "restpointname": "ファミリーマート新宿ワシントンホテル店",
+        "restpointdiv": "03",
+        "referencelatlon": {
+          "referencelat": "35.68361542",
+          "referencelon": "139.6963379"
+        },
+        "gateway1latlon": null,
+        "gateway2latlon": null,
+        "cartype": "",
+        "memo_public_all": "",
+        "facilitystopflag": 2,
+        "restngflag": 1,
+        "companiesflag": 0,
+        "private_data": null
+      },
+      {
+        "restpointcd": "513734",
+        "restpointname": "ファミリーマート新宿アイタウン店",
+        "restpointdiv": "03",
+        "referencelatlon": {
+          "referencelat": "35.69027775",
+          "referencelon": "139.6909723"
+        },
+        "gateway1latlon": null,
+        "gateway2latlon": null,
+        "cartype": "",
+        "memo_public_all": "",
+        "facilitystopflag": 2,
+        "restngflag": 1,
+        "companiesflag": 0,
+        "private_data": null
+      },
+      {
+        "restpointcd": "513932",
+        "restpointname": "ファミリーマート新宿中央公園店",
+        "restpointdiv": "03",
+        "referencelatlon": {
+          "referencelat": "35.6840625",
+          "referencelon": "139.6921615"
+        },
+        "gateway1latlon": null,
+        "gateway2latlon": null,
+        "cartype": "",
+        "memo_public_all": "",
+        "facilitystopflag": 2,
+        "restngflag": 1,
+        "companiesflag": 0,
+        "private_data": null
+      },
+      {
+        "restpointcd": "514029",
+        "restpointname": "ファミリーマート新宿エルタワー店",
+        "restpointdiv": "03",
+        "referencelatlon": {
+          "referencelat": "35.68893667",
+          "referencelon": "139.7005024"
+        },
+        "gateway1latlon": null,
+        "gateway2latlon": null,
+        "cartype": "",
+        "memo_public_all": "",
+        "facilitystopflag": 2,
+        "restngflag": 1,
+        "companiesflag": 0,
+        "private_data": null
+      },
+      {
+        "restpointcd": "514051",
+        "restpointname": "ファミリーマート小田急第一生命ビル店",
+        "restpointdiv": "03",
+        "referencelatlon": {
+          "referencelat": "35.68836808",
+          "referencelon": "139.6943403"
+        },
+        "gateway1latlon": null,
+        "gateway2latlon": null,
+        "cartype": "",
+        "memo_public_all": "",
+        "facilitystopflag": 2,
+        "restngflag": 1,
+        "companiesflag": 0,
+        "private_data": null
+      },
+      {
+        "restpointcd": "514483",
+        "restpointname": "ファミリーマート新宿モノリス店",
+        "restpointdiv": "03",
+        "referencelatlon": {
+          "referencelat": "35.68537975",
+          "referencelon": "139.697845"
+        },
+        "gateway1latlon": null,
+        "gateway2latlon": null,
+        "cartype": "",
+        "memo_public_all": "",
+        "facilitystopflag": 2,
+        "restngflag": 1,
+        "companiesflag": 0,
+        "private_data": null
+      },
+      {
+        "restpointcd": "516316",
+        "restpointname": "サンクス東京オペラシティ店",
+        "restpointdiv": "03",
+        "referencelatlon": {
+          "referencelat": "35.67977433",
+          "referencelon": "139.6900271"
+        },
+        "gateway1latlon": null,
+        "gateway2latlon": null,
+        "cartype": "",
+        "memo_public_all": "",
+        "facilitystopflag": 2,
+        "restngflag": 1,
+        "companiesflag": 0,
+        "private_data": null
+      },
+      {
+        "restpointcd": "528543",
+        "restpointname": "デイリーヤマザキ新宿大ガード西店",
+        "restpointdiv": "03",
+        "referencelatlon": {
+          "referencelat": "35.69062825",
+          "referencelon": "139.7016341"
+        },
+        "gateway1latlon": null,
+        "gateway2latlon": null,
+        "cartype": "",
+        "memo_public_all": "",
+        "facilitystopflag": 2,
+        "restngflag": 1,
+        "companiesflag": 0,
+        "private_data": null
+      },
+      {
+        "restpointcd": "56064212",
+        "restpointname": "ファミリーマート西新宿青梅街道店",
+        "restpointdiv": "03",
+        "referencelatlon": {
+          "referencelat": "35.69067167",
+          "referencelon": "139.7007801"
+        },
+        "gateway1latlon": null,
+        "gateway2latlon": null,
+        "cartype": "",
+        "memo_public_all": "",
+        "facilitystopflag": 2,
+        "restngflag": 1,
+        "companiesflag": 0,
+        "private_data": null
+      },
+      {
+        "restpointcd": "57945668",
+        "restpointname": "ファミリーマート西新宿一丁目店",
+        "restpointdiv": "03",
+        "referencelatlon": {
+          "referencelat": "35.69013758",
+          "referencelon": "139.7018215"
+        },
+        "gateway1latlon": null,
+        "gateway2latlon": null,
+        "cartype": "",
+        "memo_public_all": "",
+        "facilitystopflag": 2,
+        "restngflag": 1,
+        "companiesflag": 0,
+        "private_data": null
+      },
+      {
+        "restpointcd": "58938810",
+        "restpointname": "生活彩家新宿京王プラザホテル店",
+        "restpointdiv": "03",
+        "referencelatlon": {
+          "referencelat": "35.6863075",
+          "referencelon": "139.69764"
+        },
+        "gateway1latlon": null,
+        "gateway2latlon": null,
+        "cartype": "",
+        "memo_public_all": "",
+        "facilitystopflag": 2,
+        "restngflag": 1,
+        "companiesflag": 0,
+        "private_data": null
+      },
+      {
+        "restpointcd": "58938815",
+        "restpointname": "生活彩家ＯＰハーモニー店",
+        "restpointdiv": "03",
+        "referencelatlon": {
+          "referencelat": "35.67975583",
+          "referencelon": "139.690038"
+        },
+        "gateway1latlon": null,
+        "gateway2latlon": null,
+        "cartype": "",
+        "memo_public_all": "",
+        "facilitystopflag": 2,
+        "restngflag": 1,
+        "companiesflag": 0,
+        "private_data": null
+      }
+    ]
+  },
+  "Status": {
+    "Code": "0",
+    "Message": ""
+  }
+}
