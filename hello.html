@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>单银龙💕殷洁洁</title>
+    <style>
+        body {
+            -webkit-font-smoothing: antialiased;
+            font-family: Helvetica Neue, Helvetica, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+            background-image: url('bg.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            font-size: 85%;
+            margin: 0;
+        }
+
+        h2 {
+            font-size: 220%;
+            font-weight: 400;
+        }
+
+        .content {
+            position: absolute;
+            width: 100%;
+            top: 40%;
+            transform: translate(0, -50%);
+            text-align: center;
+            color: rgb(237, 241, 241);
+        }
+
+        .timer {
+            font-size: 180%;
+            line-height: 1.5;
+            margin: 1em 0;
+        }
+
+        .timer b {
+            color: rgb(253, 99, 125);
+        }
+    </style>
+    <script src="js/css-doodle.min.js"></script>
+</head>
+
+<body style="background-image: url(&quot;bg.jpg&quot;);">
+    <div class="content">
+        <h2>🐶我们🐶</h2>
+        <h2>已经在一起了</h2>
+        <div class="timer">
+            <b id="d">176</b> Days <b id="h">16</b> Hours <b id="m">48</b> Minutes <b id="s">34</b> Seconds
+        </div>
+    </div>
+    <css-doodle grid="5">
+        :doodle {
+          @grid: 10 / 100%; 
+        }
+        background: @pick(
+          #ff0198, #8156a8, #ff6d00, #ff75e4
+        );
+      
+        transform: translate(
+          @rand(-50vw, 50vw),
+          @rand(-50vh, 50vh)
+        );
+      
+        @size: 3.5vmin;
+        @shape: heart;
+        @place-cell: 50% 50%;
+      
+        animation-name: explosion;
+        animation-iteration-count: infinite;
+        animation-direction: reverse;
+        animation-duration: calc(@rand(2s, 5s, .1));
+        animation-delay: calc(@rand(-5s, -1s, .1));
+        animation-timing-function: 
+          cubic-bezier(.84, .02, 1, 1);
+      
+        @keyframes explosion {
+          0% { opacity: 0; }
+          70% { opacity: 1; }
+          100% { transform: translate(0, 0); }
+        }
+    </css-doodle>
+
+    <script>
+        function timer() {
+            var start = Date.parse('2021/05/24 00:00:00')
+            var t = new Date() - start;
+            var h = ~~(t / 1000 / 60 / 60 % 24);
+            if (h < 10) {
+                h = "0" + h;
+            }
+            var m = ~~(t / 1000 / 60 % 60);
+            if (m < 10) {
+                m = "0" + m;
+            }
+
+            var s = ~~(t / 1000 % 60);
+            if (s < 10) {
+                s = "0" + s;
+            }
+            document.getElementById('d').innerHTML = ~~(t / 1000 / 60 / 60 / 24);
+            document.getElementById('h').innerHTML = h;
+            document.getElementById('m').innerHTML = m;
+            document.getElementById('s').innerHTML = s;
+        }
+        function check() {
+            if (/(Android|iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+                document.body.style.backgroundImage = "url('images/mbg.jpg')";
+            } else {
+                document.body.style.backgroundImage = "url('images/bg.jpg')";
+            };
+        }
+        check();
+        timer();
+        setInterval(timer, 1000);
+    </script>
+</body>
+</html>
